@@ -1,6 +1,7 @@
 #include "cesar.h"
 #include "cesarcomplet.h"
 #include "encryptage.h"
+#include "vigenere.h"
 
 #include <iostream>
 
@@ -73,7 +74,31 @@ int main() {
     std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
     */
 
-    /* Question 4 */
+    /* Question 4
+    std::string cheminFichierSauvegardeNonChiffre = "sauvegardeNonChiffre.txt";
+    std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
+    std::string messageNonChiffre = "";
+    std::string messageChiffre = "";
+    Vigenere vigenere("cle");
+
+    messageNonChiffre = vigenere.lireMessage(cheminFichierSauvegardeNonChiffre);
+    vigenere.setMessageNonChiffre(messageNonChiffre);
+    messageChiffre = vigenere.encoderMessage();
+    vigenere.sauvegarderMessage(messageChiffre, cheminFichierSauvegardeChiffre);
+
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+
+    messageChiffre = vigenere.lireMessage(cheminFichierSauvegardeChiffre);
+    vigenere.setMessageChiffre(messageChiffre);
+    messageNonChiffre = vigenere.decoderMessage();
+    vigenere.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
+
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    */
+
+    /* Question 5 */
 
 
     return 0;
