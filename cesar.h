@@ -10,10 +10,6 @@ class Cesar : public Encryptage {
 private:
     std::string valeurDecalage;
 
-private:
-    int getCodeAsciiChar(char caractere);
-    char getCharAvecCodeCasii(int codeAscii);
-
 public:
     Cesar();
     Cesar(std::string valeurDecalage);

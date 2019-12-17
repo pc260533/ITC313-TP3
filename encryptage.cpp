@@ -16,6 +16,14 @@ void Encryptage::setMessageChiffre(std::string messageChiffre) {
     this->messageChiffre = messageChiffre;
 }
 
+int Encryptage::getCodeAsciiChar(char caractere) {
+    return (int)caractere;
+}
+
+char Encryptage::getCharAvecCodeCasii(int codeAscii) {
+    return (char)codeAscii;
+}
+
 Encryptage::Encryptage() {
 
 }

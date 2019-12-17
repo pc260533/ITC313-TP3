@@ -8,14 +8,6 @@ void Cesar::setValeurDecalage(std::string valeurDecalage) {
     this->valeurDecalage = valeurDecalage;
 }
 
-int Cesar::getCodeAsciiChar(char caractere) {
-    return (int)caractere;
-}
-
-char Cesar::getCharAvecCodeCasii(int codeAscii) {
-    return (char)codeAscii;
-}
-
 Cesar::Cesar() : Encryptage() {
     this->valeurDecalage = "3";
 }

@@ -12,6 +12,10 @@ protected:
     std::string messageNonChiffre;
     std::string messageChiffre;
 
+protected:
+    int getCodeAsciiChar(char caractere);
+    char getCharAvecCodeCasii(int codeAscii);
+
 public:
     Encryptage();
     std::string getMessageNonChiffre() const;
