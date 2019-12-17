@@ -16,6 +16,8 @@ private:
 
 public:
     Cesar();
+    Cesar(std::string valeurDecalage);
+    virtual ~Cesar();
     std::string getValeurDecalage() const;
     void setValeurDecalage(std::string valeurDecalage);
 

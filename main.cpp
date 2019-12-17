@@ -1,3 +1,4 @@
+#include "cesar.h"
 #include "encryptage.h"
 
 #include <iostream>
@@ -23,7 +24,32 @@ int main() {
     encryptage.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
     */
 
-    /* Question 2 */
+    /* Question 2
+    std::string cheminFichierSauvegardeNonChiffre = "sauvegardeNonChiffre.txt";
+    std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
+    std::string messageNonChiffre = "";
+    std::string messageChiffre = "";
+    Cesar cesar("27");
+
+    messageNonChiffre = cesar.lireMessage(cheminFichierSauvegardeNonChiffre);
+    cesar.setMessageNonChiffre(messageNonChiffre);
+    messageChiffre = cesar.encoderMessage();
+    cesar.sauvegarderMessage(messageChiffre, cheminFichierSauvegardeChiffre);
+
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+
+    messageChiffre = cesar.lireMessage(cheminFichierSauvegardeChiffre);
+    cesar.setMessageChiffre(messageChiffre);
+    messageNonChiffre = cesar.decoderMessage();
+    cesar.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
+
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    */
+
+    /* Question 3 */
+
 
     return 0;
 }

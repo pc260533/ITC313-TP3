@@ -40,8 +40,15 @@ void Encryptage::sauvegarderMessage(std::string message, std::string cheminFichi
 
 std::string Encryptage::lireMessage(std::string cheminFichier) {
     std::string message = "";
+    std::string ligne = "";
     std::ifstream fichierSauvegardeStream(cheminFichier);
     if (fichierSauvegardeStream) {
+        std::getline(fichierSauvegardeStream, ligne);
+        message += ligne;
+        while (!fichierSauvegardeStream.eof()) {
+            std::getline(fichierSauvegardeStream, ligne);
+            message += ligne;
+        }
         fichierSauvegardeStream >> message;
     }
     fichierSauvegardeStream.close();
