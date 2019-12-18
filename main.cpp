@@ -1,6 +1,7 @@
 #include "cesar.h"
 #include "cesarcomplet.h"
 #include "encryptage.h"
+#include "enigma.h"
 #include "vigenere.h"
 
 #include <iostream>
@@ -99,7 +100,29 @@ int main() {
     */
 
     /* Question 5 */
+    std::string cheminFichierSauvegardeNonChiffre = "sauvegardeNonChiffre.txt";
+    std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
+    std::string messageNonChiffre = "";
+    std::string messageChiffre = "";
+    Enigma enigmaChiffrement("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 0, "ZABCDEFGHIJKLMNOPQRSTUVWXY", 0);
+    Enigma enigmaDechiffrement("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 0, "ZABCDEFGHIJKLMNOPQRSTUVWXY", 0);
 
+
+    messageNonChiffre = enigmaChiffrement.lireMessage(cheminFichierSauvegardeNonChiffre);
+    enigmaChiffrement.setMessageNonChiffre(messageNonChiffre);
+    messageChiffre = enigmaChiffrement.encoderMessage();
+    enigmaChiffrement.sauvegarderMessage(messageChiffre, cheminFichierSauvegardeChiffre);
+
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+
+    messageChiffre = enigmaDechiffrement.lireMessage(cheminFichierSauvegardeChiffre);
+    enigmaDechiffrement.setMessageChiffre(messageChiffre);
+    messageNonChiffre = enigmaDechiffrement.decoderMessage();
+    enigmaDechiffrement.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
+
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
 
     return 0;
 }
