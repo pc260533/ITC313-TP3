@@ -1,7 +1,5 @@
 #include "enigma.h"
 
-#include <iostream>
-
 Enigma::Enigma() : Encryptage() {
     this->cleEnigma1 = "";
     this->cleEnigma2 = "";

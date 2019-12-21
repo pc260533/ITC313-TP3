@@ -2,6 +2,8 @@
 #define VIGENERE_H
 
 #include "encryptage.h"
+#include <algorithm>
+#include <string>
 
 
 

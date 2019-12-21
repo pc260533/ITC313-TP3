@@ -2,9 +2,16 @@
 #include "cesarcomplet.h"
 #include "encryptage.h"
 #include "enigma.h"
+#include "enigmacomplet.h"
 #include "vigenere.h"
+#include "vigenerecomplet.h"
 
 #include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <random>
+#include <time.h>
 
 
 
@@ -80,7 +87,7 @@ int main() {
     std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
     std::string messageNonChiffre = "";
     std::string messageChiffre = "";
-    Vigenere vigenere("cle");
+    Vigenere vigenere("CLE");
 
     messageNonChiffre = vigenere.lireMessage(cheminFichierSauvegardeNonChiffre);
     vigenere.setMessageNonChiffre(messageNonChiffre);
@@ -97,9 +104,31 @@ int main() {
 
     std::cout << "Message chiffre : " << messageChiffre << std::endl;
     std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
-    */
 
-    /* Question 5 */
+
+    std::string cheminFichierSauvegardeNonChiffre = "sauvegardeNonChiffre.txt";
+    std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
+    std::string messageNonChiffre = "";
+    std::string messageChiffre = "";
+    VigenereComplet vigenereComplet("cle");
+
+    messageNonChiffre = vigenereComplet.lireMessage(cheminFichierSauvegardeNonChiffre);
+    vigenereComplet.setMessageNonChiffre(messageNonChiffre);
+    messageChiffre = vigenereComplet.encoderMessage();
+    vigenereComplet.sauvegarderMessage(messageChiffre, cheminFichierSauvegardeChiffre);
+
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+
+    messageChiffre = vigenereComplet.lireMessage(cheminFichierSauvegardeChiffre);
+    vigenereComplet.setMessageChiffre(messageChiffre);
+    messageNonChiffre = vigenereComplet.decoderMessage();
+    vigenereComplet.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
+
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;*/
+
+    /* Question 5
     std::string cheminFichierSauvegardeNonChiffre = "sauvegardeNonChiffre.txt";
     std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
     std::string messageNonChiffre = "";
@@ -120,6 +149,53 @@ int main() {
     enigmaDechiffrement.setMessageChiffre(messageChiffre);
     messageNonChiffre = enigmaDechiffrement.decoderMessage();
     enigmaDechiffrement.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
+
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;*/
+
+    std::string cheminFichierSauvegardeNonChiffre = "sauvegardeNonChiffre.txt";
+    std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
+    std::string messageNonChiffre = "";
+    std::string messageChiffre = "";
+
+    std::string alphabet = "";
+    for (int i = 32; i < 127; i++) {
+        alphabet += char(i);
+    }
+
+    std::map<std::string, int> mapClesPositionsEnigma = {
+        {" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", 0},
+        {",!)Q ;Zrvz2^@HgS{I~1(O`ba'&l%$mqVCXG9#w0]d.-8W_34[kA5<n/RBDLsFN\\tpY6E7fy?oi|+\"xJ>ThUc=uKjeM:}*P", 0}
+    };
+
+    for (int i = 0; i < 1000; i++) {
+        std::srand(static_cast<unsigned int>(time(nullptr)));
+        std::random_shuffle(alphabet.begin(), alphabet.end());
+        mapClesPositionsEnigma.insert(std::pair<std::string, int>(alphabet, std::rand() % 100));
+    }
+
+    std::vector<std::string> listeClesEnigma;
+    std::vector<int> listePosistionsClesEnigma;
+    for (auto &clePositionEnigma : mapClesPositionsEnigma) {
+        listeClesEnigma.push_back(clePositionEnigma.first);
+        listePosistionsClesEnigma.push_back(clePositionEnigma.second);
+    }
+    EnigmaComplet enigmaCompletChiffrement(listeClesEnigma, listePosistionsClesEnigma);
+    EnigmaComplet enigmaCompletDechiffrement(listeClesEnigma, listePosistionsClesEnigma);
+
+
+    messageNonChiffre = enigmaCompletChiffrement.lireMessage(cheminFichierSauvegardeNonChiffre);
+    enigmaCompletChiffrement.setMessageNonChiffre(messageNonChiffre);
+    messageChiffre = enigmaCompletChiffrement.encoderMessage();
+    enigmaCompletChiffrement.sauvegarderMessage(messageChiffre, cheminFichierSauvegardeChiffre);
+
+    std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;
+    std::cout << "Message chiffre : " << messageChiffre << std::endl;
+
+    messageChiffre = enigmaCompletDechiffrement.lireMessage(cheminFichierSauvegardeChiffre);
+    enigmaCompletDechiffrement.setMessageChiffre(messageChiffre);
+    messageNonChiffre = enigmaCompletDechiffrement.decoderMessage();
+    enigmaCompletDechiffrement.sauvegarderMessage(messageNonChiffre, cheminFichierSauvegardeNonChiffre);
 
     std::cout << "Message chiffre : " << messageChiffre << std::endl;
     std::cout << "Message non chiffre : " << messageNonChiffre << std::endl;

@@ -2,7 +2,7 @@ CXX        = g++
 CXXFLAGS   = -Wall -Wextra -std=c++11
 DEPFLAGS   = -MMD
 LDFLAGS    = 
-SRCS       = main.cpp encryptage.cpp cesar.cpp cesarcomplet.cpp vigenere.cpp enigma.cpp
+SRCS       = main.cpp encryptage.cpp cesar.cpp cesarcomplet.cpp vigenere.cpp vigenerecomplet.cpp enigma.cpp enigmacomplet.cpp
 OBJS       = $(SRCS:.cpp=.o)
 TARGET     = TP01 
 DEPS	   = $(OBJS:.o=.d)
