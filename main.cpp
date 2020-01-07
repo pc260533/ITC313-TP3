@@ -133,8 +133,8 @@ int main() {
     std::string cheminFichierSauvegardeChiffre = "sauvegardeChiffre.txt";
     std::string messageNonChiffre = "";
     std::string messageChiffre = "";
-    Enigma enigmaChiffrement("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 0, "ZABCDEFGHIJKLMNOPQRSTUVWXY", 0);
-    Enigma enigmaDechiffrement("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 0, "ZABCDEFGHIJKLMNOPQRSTUVWXY", 0);
+    Enigma enigmaChiffrement("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 120, "ZABCDEFGHIJKLMNOPQRSTUVWXY", 0);
+    Enigma enigmaDechiffrement("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 120, "ZABCDEFGHIJKLMNOPQRSTUVWXY", 0);
 
 
     messageNonChiffre = enigmaChiffrement.lireMessage(cheminFichierSauvegardeNonChiffre);

@@ -11,10 +11,8 @@ class Enigma : public Encryptage {
 private:
     std::string cleEnigma1;
     std::string cleEnigma2;
-    std::string cleEnigma3;
     int positionCleEnigma1;
     int positionCleEnigma2;
-    int positionCleEnigma3;
 
 public:
     Enigma();

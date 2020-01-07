@@ -3,28 +3,35 @@
 Enigma::Enigma() : Encryptage() {
     this->cleEnigma1 = "";
     this->cleEnigma2 = "";
-    this->cleEnigma3 = "";
     this->positionCleEnigma1 = 0;
     this->positionCleEnigma2 = 0;
-    this->positionCleEnigma3 = 0;
 }
 
 Enigma::Enigma(std::string cleEnigma1, int positionCleEnigma1) : Encryptage() {
     this->cleEnigma1 = cleEnigma1;
     this->cleEnigma2 = "";
-    this->cleEnigma3 = "";
     this->positionCleEnigma1 = positionCleEnigma1;
     this->positionCleEnigma2 = 0;
-    this->positionCleEnigma3 = 0;
 }
 
 Enigma::Enigma(std::string cleEnigma1, int positionCleEnigma1, std::string cleEnigma2, int positionCleEnigma2) : Encryptage() {
     this->cleEnigma1 = cleEnigma1;
     this->cleEnigma2 = cleEnigma2;
-    this->cleEnigma3 = "";
     this->positionCleEnigma1 = positionCleEnigma1;
     this->positionCleEnigma2 = positionCleEnigma2;
-    this->positionCleEnigma3 = 0;
+    // On rétablit les positions si la valeur est supérieur à la taille de l'alhapabet.
+    if (this->positionCleEnigma1 < 0) {
+        this->positionCleEnigma1 = 26 - (-this->positionCleEnigma1 % 26);
+    }
+    else {
+        this->positionCleEnigma1 %= 26;
+    }
+    if (this->positionCleEnigma2 < 0) {
+        this->positionCleEnigma2 = 26 - (-this->positionCleEnigma2 % 26);
+    }
+    else {
+        this->positionCleEnigma2 %= 26;
+    }
 }
 
 Enigma::~Enigma() {
@@ -75,18 +82,18 @@ std::string Enigma::decoderMessage() {
             caractereChiffre = this->getCodeAsciiChar(this->messageChiffre.at(i)) - 65;
             caractereNonChiffre = this->cleEnigma2.find(this->getCharAvecCodeCasii(caractereChiffre + 65));
 
-            caractereChiffre = (caractereNonChiffre + this->positionCleEnigma2 + 26) % 26 + 65;
+            caractereChiffre = (caractereNonChiffre - this->positionCleEnigma2 + 26) % 26 + 65;
             caractereNonChiffre = this->cleEnigma1.find(this->getCharAvecCodeCasii(caractereChiffre));
-            this->messageNonChiffre += this->getCharAvecCodeCasii((caractereNonChiffre + this->positionCleEnigma1 + 26) % 26 + 65);
+            this->messageNonChiffre += this->getCharAvecCodeCasii((caractereNonChiffre - this->positionCleEnigma1 + 26) % 26 + 65);
 
             if ((tailleMessage % 26 == 0) && (tailleMessage != 0)) {
-                this->positionCleEnigma2--;
+                this->positionCleEnigma2++;
             }
-            if (this->positionCleEnigma1 == -25) {
-                this->positionCleEnigma1 = -1;
+            if (this->positionCleEnigma1 == 25) {
+                this->positionCleEnigma1 = 1;
             }
             else {
-                this->positionCleEnigma1--;
+                this->positionCleEnigma1++;
             }
         }
         else {
