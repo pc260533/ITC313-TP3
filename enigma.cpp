@@ -49,20 +49,26 @@ std::string Enigma::encoderMessage() {
             tailleMessage++;
             caractereNonChiffre = this->getCodeAsciiChar(this->messageNonChiffre.at(i)) - 65;
             caractereChiffre = this->cleEnigma1.at((caractereNonChiffre + this->positionCleEnigma1) % 26);
-            //this->messageChiffre += this->getCharAvecCodeCasii(caractereChiffre);
+
+            caractereNonChiffre = caractereChiffre - 65;
+            caractereChiffre = this->cleEnigma2.at((caractereNonChiffre + this->positionCleEnigma2) % 26);
+
             if (this->positionCleEnigma1 == 25) {
                 this->positionCleEnigma1 = 1;
             }
             else {
                 this->positionCleEnigma1++;
             }
-
-            caractereNonChiffre = caractereChiffre - 65;
-            caractereChiffre = this->cleEnigma2.at((caractereNonChiffre + this->positionCleEnigma2) % 26);
-            this->messageChiffre += this->getCharAvecCodeCasii(caractereChiffre);
             if ((tailleMessage % 26 == 0) && (tailleMessage != 0)) {
-                this->positionCleEnigma2++;
+                if (this->positionCleEnigma2 == 25) {
+                    this->positionCleEnigma2 = 1;
+                }
+                else {
+                    this->positionCleEnigma2++;
+                }
             }
+
+            this->messageChiffre += this->getCharAvecCodeCasii(caractereChiffre);
         }
         else {
             this->messageChiffre += this->messageNonChiffre.at(i);
@@ -83,11 +89,15 @@ std::string Enigma::decoderMessage() {
             caractereNonChiffre = this->cleEnigma2.find(this->getCharAvecCodeCasii(caractereChiffre + 65));
 
             caractereChiffre = (caractereNonChiffre - this->positionCleEnigma2 + 26) % 26 + 65;
-            caractereNonChiffre = this->cleEnigma1.find(this->getCharAvecCodeCasii(caractereChiffre));
-            this->messageNonChiffre += this->getCharAvecCodeCasii((caractereNonChiffre - this->positionCleEnigma1 + 26) % 26 + 65);
+            caractereNonChiffre = (this->cleEnigma1.find(this->getCharAvecCodeCasii(caractereChiffre)) - this->positionCleEnigma1 + 26) % 26 + 65;
 
             if ((tailleMessage % 26 == 0) && (tailleMessage != 0)) {
-                this->positionCleEnigma2++;
+                if (this->positionCleEnigma2 == 25) {
+                    this->positionCleEnigma2 = 1;
+                }
+                else {
+                    this->positionCleEnigma2++;
+                }
             }
             if (this->positionCleEnigma1 == 25) {
                 this->positionCleEnigma1 = 1;
@@ -95,6 +105,8 @@ std::string Enigma::decoderMessage() {
             else {
                 this->positionCleEnigma1++;
             }
+
+            this->messageNonChiffre += this->getCharAvecCodeCasii(caractereNonChiffre);
         }
         else {
             this->messageNonChiffre += this->messageChiffre.at(i);
